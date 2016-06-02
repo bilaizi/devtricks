@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 'android-N'
+    buildToolsVersion "24.0.0 rc4"
+
+
+    defaultConfig {
+        applicationId 'com.hyperaware.android.devtricks'
+        minSdkVersion 10
+        targetSdkVersion 'N'
+        jackOptions {
+            enabled true
+        }
+        versionCode 1
+        versionName '1.0'
+    }
+    compileOptions {
+        incremental true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        // prod flavor to be shipped to market
+        // It sets a string resource named "some_api_key" to the value used for shipping apps
+        prod {
+            versionName '1.0'
+            resValue 'string', 'some_api_key', 'ABCD1234'
+        }
+
+        // dev flavor for internal use only
+        // It sets a string resource named "some_api_key" to the value used during development
+        dev {
+            versionName '1.0-dev'
+            resValue 'string', 'some_api_key', 'EFGH5678'
+        }
+    }
+}
+dependencies {
+    compile 'com.android.support:appcompat-v7:24.0.0-beta1'
+    compile 'com.android.support:appcompat-v7:24.0.0-beta1'
+    compile 'com.android.support:recyclerview-v7:24.0.0-beta1'
+    testCompile 'junit:junit:4.12'
+    // Used only in the dev flavor build in the test dashboard
+    devCompile 'org.apmem.tools:layouts:1.8'
+}
